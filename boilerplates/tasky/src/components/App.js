@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
+import { ipcRenderer } from "electron";
 
 import Header from "./Header";
 import TasksIndex from "./TasksIndex";
 import TasksShow from "./TasksShow";
 import Timer from "../utils/Timer";
 import Settings from "./Settings";
+
 
 const APP_DATA = JSON.parse(localStorage.getItem("__INITIAL_STATE__"));
 
@@ -48,10 +50,13 @@ class App extends Component {
   };
 
   updateTrayText = title => {
+    ipcRenderer.send("update-timer", title);
+
 
   };
 
   timerHasExpired = () => {
+    ipcRenderer.send("update-timer", "");
 
   };
 
